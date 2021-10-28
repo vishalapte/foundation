@@ -1,7 +1,37 @@
 ---
 - hosts: servers
+  become: yes
   tasks:
-    - name: Add user 'vishal'
+    - name: Add user 'vishal' and generate SSH key for vishal@{{ansible_hostname}}
       user:
         name: vishal
+        # Add to sudo
+        groups: sudo
+        append: yes
+        # shell
+        shell: /bin/bash
+        # id_rsa
+        generate_ssh_key: yes
+        ssh_key_type: rsa
+        ssh_key_bits: 4096
+        ssh_key_comment: vishal@{{ansible_hostname}}
+        force: no
+    # - name: Add user 'jayanta'
+    #   user:
+    #     name: jayanta
+    #     groups: sudo
+    #     append: yes
+    #     shell: /bin/bash
+    # - name: Add user 'pushpendra'
+    #   user:
+    #     name: pushpendra
+    #     groups: sudo
+    #     append: yes
+    #     shell: /bin/bash
+    # - name: Add user 'kushal'
+    #   user:
+    #     name: kushal
+    #     groups: sudo
+    #     append: yes
+    #     shell: /bin/bash
 ...

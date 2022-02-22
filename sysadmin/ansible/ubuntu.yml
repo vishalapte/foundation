@@ -11,6 +11,7 @@
         - landscape-common
         - update-notifier-common
         - cron
+        - net-tools
         - ufw
         - mailutils
         - postfix
@@ -67,7 +68,4 @@
       apache2_module:
         state: present
         name: ssl
-    - name: Add user 'vishal'
-      user:
-        name: vishal
 ...

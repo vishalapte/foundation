@@ -22,5 +22,8 @@ brew install imagemagick
 brew install exiftool
 brew install ffmpeg
 
+# Mixed Integer Programming
+brew install glpk
+
 brew cleanup
 

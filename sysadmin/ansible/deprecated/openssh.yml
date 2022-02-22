@@ -1,0 +1,22 @@
+---
+- hosts: servers
+  
+  vars:
+    ssh_file: id_rsa
+    ssh_user: vishal
+
+  tasks:
+    # https://docs.ansible.com/ansible/latest/collections/community/crypto/openssh_keypair_module.html
+    - name: Generate an OpenSSH keypair with the default values (4096 bits, rsa)
+      openssh_keypair:
+        path: /home/{{ssh_user}}/.ssh/{{ssh_file}}
+        type: rsa
+        size: 4096
+        force: no
+        owner: {{ssh_user}}
+        group: {{ssh_user}}
+    - name: Fix owner of the generated pub key
+      file:
+        path: /home/{{ssh_user}}/.ssh/{{ssh_file}}.pub
+        owner: {{ssh_user}}
+        group: {{ssh_user}} 

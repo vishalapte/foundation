@@ -18,6 +18,8 @@ else
   export PS1="[${color_yellow}\A${color_reset}] ${color_yellow}\u@\h${color_reset}\n(\w)\$(__git_ps1) "
 fi
 
+EDITOR=vi
+
 # bash_aliases
 if [ -f ~/.bash_aliases ]; then
   echo "Loading bash_aliases"

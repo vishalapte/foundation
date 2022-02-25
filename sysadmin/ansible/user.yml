@@ -1,14 +1,22 @@
 ---
 - hosts: servers
   vars:
-    users:
-      - login: parag
-      - login: jm_7c6e70d8
-        authkey: https://github.com/jayanta-1e9.keys
-      - login: pt_879b5697
-  become: yes
+    files:
+      - file: "bash_login"
+      - file: "bash_aliases"
+      - file: "qux_python"
+  # vars_files:
+  #   - userlist.yml
   tasks:
-    - name: Add vishal @ {{ ansible_hostname }} and generate ED25519 key
+    # Root
+    - name: Copy login scripts to root
+      get_url:
+        url: "https://raw.githubusercontent.com/vishalapte/foundation/main/shell/{{ item.file }}"
+        dest: "$HOME/.{{ item.file }}"
+        force: no
+      with_items: "{{ files }}"
+    # Vishal
+    - name: Add vishal and generate ed25519 key
       user:
         name: vishal
         groups: sudo
@@ -19,26 +27,34 @@
         ssh_key_bits: 4096
         ssh_key_comment: vishal@{{ ansible_hostname }}
         force: no
-
     - name: Set authorized key from file
       authorized_key:
         user: vishal
         state: present
         key: "https://vishalapte.com/auth_keys"
-
+    - name: Copy login scripts to vishal
+      get_url:
+        url: "https://raw.githubusercontent.com/vishalapte/foundation/main/shell/{{ item.file }}"
+        dest: "/home/vishal/.{{ item.file }}"
+        owner: vishal
+        group: vishal
+        mode: "0644"
+        force: no
+      with_items: "{{ files }}"
+    # Other users
     - name: "Add user"
       user:
         name: "{{ item.login }}"
         groups: sudo
         append: yes
         shell: /bin/bash
+      when: users is defined
       with_items: "{{ users }}"
-
     - name: Set authorized_key
       authorized_key:
         user: "{{ item.login }}"
         state: present
         key: "{{ item.authkey }}"
-      when: item.authkey is defined
+      when: users is defined and item.authkey is defined
       with_items: "{{ users }}"
 ...

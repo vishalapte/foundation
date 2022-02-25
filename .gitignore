@@ -1,2 +1,8 @@
+# Confidential information
+userlist.yml
+
+# OS generated files
 .DS_Store
+
+# virtual environment
 venv/

@@ -1,3 +1,6 @@
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+
+# Notes
 # brew remove --force $(brew list --formula)
 
 # python 3.10
@@ -21,6 +24,7 @@ brew install redis
 brew install imagemagick
 brew install exiftool
 brew install ffmpeg
+brew install youtube-dl
 
 # Mixed Integer Programming
 brew install glpk

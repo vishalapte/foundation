@@ -32,6 +32,7 @@
         user: vishal
         state: present
         key: "https://vishalapte.com/auth_keys"
+        # key: "{{ lookup('file', '/Users/vishal/dotssh/id_rsa.pub') }}"
     - name: Copy login scripts to vishal
       get_url:
         url: "https://raw.githubusercontent.com/vishalapte/foundation/main/shell/{{ item.file }}"

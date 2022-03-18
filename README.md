@@ -1,5 +1,25 @@
 # Foundation
 
+## Getting Started
+
+```shell
+if [[ $OSTYPE == darwin* ]]; then
+  echo "== Install brew and packages"
+  giturl="https://raw.githubusercontent.com/vishalapte/foundation/main/"
+  /bin/bash -c "$(curl -fsSL $giturl/brew_machine.sh)"
+  unset -v giturl
+fi
+```
+
+```shell
+if [[ $OSTYPE == darwin* || $OSTYPE == linux* ]]; then
+  echo "== Copy dotfiles"
+  giturl="https://raw.githubusercontent.com/vishalapte/foundation/main"
+  /bin/bash -c "$(curl -fsSL $giturl/shell/copy_dotfiles.sh)"
+  unset -v giturl
+fi
+```
+
 ## Shell
 
 bash_login.sh - Includes git convenience

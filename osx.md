@@ -24,7 +24,7 @@ sudo chsh -s /usr/bin/false username
 sudo chsh -s /bin/bash username
 ```
 
-### Hide a user account
+### Show/hide a user account
 
 Hide the user account
 

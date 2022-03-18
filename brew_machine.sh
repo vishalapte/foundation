@@ -16,8 +16,12 @@ brew link --force --overwrite python@3.8
 # utilities
 brew install tree
 
-brew install graphviz
+# MySQL
 brew install mysql
+# Influx
+brew install influxdb
+# 
+brew install graphviz
 brew install redis
 
 # media manipulation

@@ -9,13 +9,16 @@ color_purple='\e[0;35m'
 color_cyan='\e[0;36m'
 color_reset='\e[m'
 
+EDITOR=vi
+
 # prompt
+echo "user: ${USER}"
 if [ $USER == 'root' ]; then
-  echo "user: root"
   export PS1="[${color_red}\A${color_reset}] ${color_red}\u@\h${color_reset}\n(\w)\$(__git_ps1) "
-else
-  echo "user: ${USER}"
+elif [[ $OSTYPE == darwin* ]]; then
   export PS1="[${color_yellow}\A${color_reset}] ${color_yellow}\u@\h${color_reset}\n(\w)\$(__git_ps1) "
+else
+  export PS1="[${color_green}\A${color_reset}] ${color_green}\u@\h${color_reset}\n(\w)\$(__git_ps1) "
 fi
 
 EDITOR=vi
@@ -75,3 +78,12 @@ fi
 # OPT OUT of sending telemetry data to Microsoft
 # docs.microsoft.com/en-us/dotnet/core/tools/telemetry
 export FUNCTIONS_CORE_TOOLS_TELEMETRY_OPTOUT=true
+
+if [[ $OSTYPE == darwin* ]]; then
+  # Brew
+  # https://docs.brew.sh/Manpage#environment
+  # export HOMEBREW_NO_INSTALL_CLEANUP
+  # export HOMEBREW_NO_ENV_HINTS
+  export HOMEBREW_NO_ANALYTICS=1
+  export HOMEBREW_UPDATE_REPORT_ONLY_INSTALLED=1
+fi

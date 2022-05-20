@@ -29,6 +29,7 @@ if [[ $OSTYPE == darwin* ]]; then
   alias web2png='/usr/local/bin/webkit2png --ignore-ssl-check'
   alias renamemachine=fn_rename_machine
   alias reset_video_camera='sudo killall VDCAssistant'
+  alias ytdl="youtube-dl -f 'bestvideo+bestaudio/bestvideo+bestaudio" --merge-output-format mp4 "$@"'
 
   fn_rename_machine() {
     sudo scutil --set ComputerName "$@"

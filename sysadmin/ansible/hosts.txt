@@ -1,7 +1,5 @@
 [servers]
-# challenge ansible_host=134.209.96.240 ansible_user=root
-# cacofonix ansible_host=159.223.166.242 ansible_user=root
-# nassau ansible_host=137.184.62.165 ansible_user=root
-# havana ansible_host=143.244.159.168 ansible_user=root
-athens.enine.dev ansible_host=143.110.249.220 ansible_user=root
-berlin.enine.dev ansible_host=143.110.249.220 ansible_user=root
+athens ansible_host=143.110.179.160
+berlin ansible_host=143.110.249.220
+kargil ansible_host=143.244.137.163
+matrix ansible_host=64.227.163.209

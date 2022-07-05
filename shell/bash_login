@@ -20,6 +20,7 @@ elif [[ $OSTYPE == darwin* ]]; then
 else
   export PS1="[${color_green}\A${color_reset}] ${color_green}\u@\h${color_reset}\n(\w)\$(__git_ps1) "
 fi
+export MYSQL_PS1="\u@\h (\d) $ "
 
 EDITOR=vi
 

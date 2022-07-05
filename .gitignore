@@ -7,3 +7,6 @@ hosts.txt
 
 # virtual environment
 venv/
+
+# Visual Studio
+.idea/

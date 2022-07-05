@@ -68,4 +68,8 @@
       apache2_module:
         state: present
         name: ssl
+    - name: renew certificates
+      ansible.builtin.include_tasks: certs.yml
+    - name: edit sudoers
+      ansible.builtin.include_tasks: sudoer.yml
 ...

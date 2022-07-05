@@ -1,0 +1,30 @@
+---
+- hosts: servers
+  vars:
+    dotfiles:
+      - file: "bash_login"
+      - file: "bash_aliases"
+      - file: "qux_python"
+  vars_files:
+    - userlist.yml
+  tasks:
+    - name: Copy dotfiles to ~root
+      get_url:
+        url: "https://raw.githubusercontent.com/vishalapte/foundation/main/shell/{{ item.file }}"
+        dest: "$HOME/.{{ item.file }}"
+        force: yes
+      with_items: "{{ dotfiles }}"
+
+    - name: Copy dotfiles to ~user
+      get_url:
+        url: "https://raw.githubusercontent.com/vishalapte/foundation/main/shell/{{ item[0].file }}"
+        dest: "/home/{{ item[1].login }}/.{{ item[0].file }}"
+        owner: "{{ item[1].login }}"
+        group: "{{ item[1].login }}"
+        mode: "0644"
+        force: yes
+      with_nested:
+      - "{{ dotfiles }}"
+      - "{{ users }}"
+      when: dotfiles is defined and users is defined
+...

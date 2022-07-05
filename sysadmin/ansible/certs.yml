@@ -1,0 +1,17 @@
+---
+- name: Copy renew_certs.sh
+  get_url:
+    url: "https://raw.githubusercontent.com/vishalapte/foundation/main/usr/local/sbin/renew_certs.sh"
+    dest: "/usr/local/sbin/renew_certs.sh"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+    force: no
+- name: Creates entry (30 4 * * 0 /bin/bash /usr/local/sbin/renew_certs.sh)
+  ansible.builtin.cron:
+    name: Renew certs
+    minute: 30
+    hour: 4
+    weekday: 0
+    job: "/bin/bash /usr/local/sbin/renew_certs.sh"
+...

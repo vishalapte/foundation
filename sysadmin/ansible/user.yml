@@ -8,7 +8,7 @@
   vars_files:
     - userlist.yml
   tasks:
-    - name: Copy login scripts to root
+    - name: Copy dotfiles to ~root
       get_url:
         url: "https://raw.githubusercontent.com/vishalapte/foundation/main/shell/{{ item.file }}"
         dest: "$HOME/.{{ item.file }}"
@@ -27,31 +27,7 @@
       with_items: "{{ users }}"
       when: users is defined
 
-    - name: "Add user to sudoers"
-      user:
-        name: "{{ item.login }}"
-        groups: sudo
-        append: yes
-      with_items: "{{ users }}"
-      when: users is defined and item.sudo is defined
-
-    - name: Set authorized_key - custom
-      authorized_key:
-        user: "{{ item.login }}"
-        state: present
-        key: "{{ item.key }}"
-      with_items: "{{ users }}"
-      when: users is defined and item.key is defined
-
-    - name: Set authorized_key - https://github.com/githubid.keys
-      authorized_key:
-        user: "{{ item.login }}"
-        state: present
-        key: "https://github.com/{{ item.github }}.keys"
-      with_items: "{{ users }}"
-      when: users is defined and item.github is defined
-
-    - name: Copy dot files
+    - name: Copy dotfiles to ~{{ item[1].login }}
       get_url:
         url: "https://raw.githubusercontent.com/vishalapte/foundation/main/shell/{{ item[0].file }}"
         dest: "/home/{{ item[1].login }}/.{{ item[0].file }}"
@@ -64,4 +40,28 @@
       - "{{ dotfiles }}"
       - "{{ users }}"
       when: dotfiles is defined and users is defined
+
+    - name: Set authorized_key - https://github.com/githubid.keys
+      authorized_key:
+        user: "{{ item.login }}"
+        state: present
+        key: "https://github.com/{{ item.github }}.keys"
+      with_items: "{{ users }}"
+      when: users is defined and item.github is defined
+
+    - name: Set authorized_key - custom
+      authorized_key:
+        user: "{{ item.login }}"
+        state: present
+        key: "{{ item.key }}"
+      with_items: "{{ users }}"
+      when: users is defined and item.key is defined
+
+    - name: "Add user to sudoers"
+      user:
+        name: "{{ item.login }}"
+        groups: sudo
+        append: yes
+      with_items: "{{ users }}"
+      when: users is defined and item.sudo is defined
 ...

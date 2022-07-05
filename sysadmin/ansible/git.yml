@@ -1,0 +1,41 @@
+---
+- hosts: servers
+  vars_files:
+    - userlist.yml
+  tasks:
+    - name: git config user.name
+      git_config:
+        name: user.name
+        value: "{{ item.name }}"
+      become: true
+      become_user: "{{ item.login }}"
+      with_items: "{{ users }}"
+      when: users is defined and item.name is defined
+
+    - name: git config user.email
+      git_config:
+        name: user.email
+        value: "{{ item.email }}"
+      become: true
+      become_user: "{{ item.login }}"
+      with_items: "{{ users }}"
+      when: users is defined and item.email is defined
+
+    - name: git config core.editor
+      git_config:
+        name: core.editor
+        value: vim
+      become: true
+      become_user: "{{ item.login }}"
+      with_items: "{{ users }}"
+      when: users is defined
+
+    - name: git config color.ui
+      git_config:
+        name: color.ui
+        value: auto
+      become: true
+      become_user: "{{ item.login }}"
+      with_items: "{{ users }}"
+      when: users is defined
+...
